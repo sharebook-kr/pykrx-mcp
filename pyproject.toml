@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pykrx-mcp"
+dynamic = ["version"]
+description = "MCP server for pykrx - Korean stock market data library"
+authors = [
+    { name = "sharebook-kr", email = "help@stockplus.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "pykrx>=1.0.46",
+    "mcp[cli]>=1.1.2",
+    "pandas>=2.0.0",
+]
+keywords = ["mcp", "pykrx", "kospi", "kosdaq", "ai-agent", "krx"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/sharebook-kr/pykrx-mcp"
+Repository = "https://github.com/sharebook-kr/pykrx-mcp"
+Issues = "https://github.com/sharebook-kr/pykrx-mcp/issues"
+
+[project.scripts]
+pykrx-mcp = "pykrx_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pykrx_mcp"]
+
+[tool.hatch.version]
+path = "src/pykrx_mcp/__about__.py"
