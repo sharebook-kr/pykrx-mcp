@@ -1,0 +1,41 @@
+name: pykrx-mcp
+author: sharebook-kr
+description: MCP server for Korean stock market data using pykrx library. Provides tools for KOSPI/KOSDAQ market analysis, ETF tracking, and fundamental data queries.
+version: 0.1.0
+runtime: python
+
+# 설치 명령
+install:
+  - pip install pykrx-mcp
+
+# 서버 실행 명령
+start:
+  command: python
+  args:
+    - -m
+    - pykrx_mcp
+
+# MCP 프로토콜 정보
+transport: stdio
+
+# 카테고리 및 태그
+categories:
+  - finance
+  - data-analysis
+tags:
+  - korean-stock-market
+  - kospi
+  - kosdaq
+  - krx
+  - market-data
+  - etf
+  - fundamental-analysis
+
+# 저장소 정보
+repository: https://github.com/sharebook-kr/pykrx-mcp
+homepage: https://github.com/sharebook-kr/pykrx-mcp#readme
+license: MIT
+
+# 최소 요구사항
+requirements:
+  python: ">=3.10"

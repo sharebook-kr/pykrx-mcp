@@ -18,6 +18,14 @@
 
 ## 🚀 빠른 시작
 
+### Via Smithery (권장)
+
+[Smithery](https://smithery.ai)는 MCP 서버를 위한 패키지 매니저입니다.
+
+```bash
+smithery install pykrx-mcp
+```
+
 ### 설치 없이 바로 실행
 
 ```bash

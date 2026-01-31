@@ -40,11 +40,15 @@ jobs:
           echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "Bumped version: $CURRENT_VERSION → $NEW_VERSION"
       
+      - name: Sync Smithery version
+        run: |
+          python scripts/sync_smithery_version.py
+      
       - name: Commit and push changes
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add src/pykrx_mcp/__about__.py
+          git add src/pykrx_mcp/__about__.py smithery.yaml
           if [ -f uv.lock ]; then git add uv.lock; fi
           git commit -m "chore: bump version to ${{ steps.bump-version.outputs.new_version }} and update pykrx"
           git push
@@ -91,12 +95,18 @@ jobs:
             ## 🚀 Release ${{ steps.get-version.outputs.version }}
             
             ### Installation
+            
+            **Via Smithery (Recommended)**
+            ```bash
+            smithery install pykrx-mcp
+            ```
+            
+            **Via uvx**
             ```bash
             uvx pykrx-mcp
             ```
             
-            or
-            
+            **Via pip**
             ```bash
             pip install pykrx-mcp==${{ steps.get-version.outputs.version }}
             ```

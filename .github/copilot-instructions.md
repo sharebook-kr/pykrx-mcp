@@ -8,7 +8,9 @@ This is an MCP (Model Context Protocol) server that exposes the `pykrx` Korean s
 **Core Components:**
 - `src/pykrx_mcp/server.py`: FastMCP server with tool definitions
 - `src/pykrx_mcp/__about__.py`: Single source of truth for version management
-- `.github/workflows/publish.yml`: Dual-trigger automated release workflow
+- `smithery.yaml`: Smithery registry metadata (auto-synced with Python version)
+- `scripts/sync_smithery_version.py`: Version synchronization script
+- `.github/workflows/publish.yml`: Fully automated dual-platform release workflow
 
 **MCP stdio Pattern:**
 - All logging MUST go to `sys.stderr` (stdout is reserved for MCP protocol communication)
@@ -18,21 +20,72 @@ This is an MCP (Model Context Protocol) server that exposes the `pykrx` Korean s
 
 ## Version Management
 
-Version lives in `src/pykrx_mcp/__about__.py` as `__version__ = "x.y.z"`. This is:
-- Read by hatchling build system via `[tool.hatch.version]` in pyproject.toml
-- Auto-bumped by CI during pykrx dependency updates
-- Manually updated for feature releases
+**Single source of truth:** `src/pykrx_mcp/__about__.py`
 
-## Automated Release Workflow
+```python
+__version__ = "x.y.z"
+```
+Fully Automated Release Workflow
 
-**Two release triggers:**
+**Two automated paths to release:**
 
-1. **`repository_dispatch` (pykrx_release)**: External signal from pykrx repository
-   - Runs `update-version` job
-   - Executes `uv lock --upgrade-package pykrx` to update dependency
-   - Bumps patch version in `__about__.py`
-   - Commits changes and creates git tag `vX.Y.Z`
-   - Tag push triggers the publish job (see below)
+### Path 1: Upstream pykrx Update (Fully Automated)
+
+**Trigger:** `repository_dispatch` event from pykrx repository
+
+**What happens:**
+1. CI upgrades pykrx dependency: `uv lock --upgrade-package pykrx`
+2. Bumps patch version in `__about__.py` (e.g., `0.1.0` → `0.1.1`)
+3. Runs `scripts/sync_smithery_version.py` to sync `smithery.yaml`
+4. Commits: `uv.lock`, `__about__.py`, `smithery.yaml`
+5. Creates git tag `v0.1.1`
+6. Pushes commit and tag to main branch
+7. Tag push triggers Path 2 (below)
+
+**Zero manual intervention required.**
+
+### Path 2: Tag Push (Fully Automated)
+
+**Trigger:** Git tag push matching `v*` pattern
+
+**What happens:**
+1. Builds Python package: `uv build`
+2. Publishes to PyPI via OIDC Trusted Publishing
+3. Creates GitHub Release with auto-generated notes
+4. Smithery auto-detects updated `smithery.yaml` from the tagged commit
+
+**Works for both:**
+- Tags created by Path 1 (automated)
+- Tags created manually (see below)
+
+### Manual Feature Release
+
+**When you add new tools/resources:**
+
+```bash
+# 1. Update version in __about__.py
+# Change: __version__ = "0.1.0"
+# To:     __version__ = "0.2.0"  # for minor release
+
+# 2. Commit changes
+7. **Update version in `__about__.py`** (minor bump for new tools)
+8. **Create and push tag** - CI handles the rest
+git add src/pykrx_mcp/__about__.py
+git commit -m "feat: add new tool for XYZ"
+
+# 3. Create and push tag
+git tag v0.2.0
+git push origin main
+git push origin v0.2.0
+
+# 4. CI handles everything else automatically:
+#    - Syncs smithery.yaml to version 0.2.0
+#    - Publishes to PyPI
+#    - Creates GitHub Release
+#    - Smithery detects update
+```
+
+**That's it!** No need to manually edit `smithery.yaml`.
 
 2. **`push` tags (v*)**: Manual or automated tag push
    - Runs `publish` job with `environment: pypi`
@@ -99,17 +152,39 @@ def get_resource_name() -> str:
     
     Comprehensive documentation that the AI model will read.
     Include:
-    - Data format constraints
-    - Tool selection mappings
-    - Error handling guidance
-    - Performance tips
-    """
+   Version Sync Script
+
+**Purpose:** `scripts/sync_smithery_version.py`
+- Reads version from `__about__.py`
+- Updates `version:` field in `smithery.yaml`
+- Used by CI automatically, can also run locally
+
+**Local testing:**
+```bash
+python scripts/sync_smithery_version.py
+# Output: ✓ Updated smithery.yaml to version X.Y.Z
 ```
 
-**Current resources:**
-- `krx://info`: Basic KRX market information
-- `krx://pykrx-manual`: Comprehensive usage guide including:
-  - Date/ticker format constraints with correct/incorrect examples
+## Smithery Registration
+
+**Installation via Smithery:**
+```bash
+smithery install pykrx-mcp
+```
+
+After updating `smithery.yaml`, Smithery automatically detects changes from tagged releases.
+
+## Release Process
+
+**For pykrx dependency updates (automated):**
+- Upstream `pykrx` repository sends `repository_dispatch` webhook
+- CI handles everything automatically: dependency update → version bump → PyPI + Smithery
+
+**For feature releases (manual):**
+1. Update `__about__.py` version (e.g., `0.1.0` → `0.2.0` for new features)
+2. Commit changes: `git commit -am "feat: add new functionality"`
+3. Create and push tag: `git tag v0.2.0 && git push origin main --tags`
+4. CI automatically syncs `smithery.yaml`, publishes to PyPI, and updates GitHub Releaseth correct/incorrect examples
   - Tool selection guide (which tool for which user question)
   - Best practices for long-term data queries and rate limiting
   - Common error patterns and troubleshooting steps
@@ -129,11 +204,13 @@ uv pip install -e .     # Editable install with uv
 pykrx-mcp              # Run server (blocks on stdio)
 ```
 
-**Testing MCP server:**
-Use MCP inspector or configure in Claude Desktop config:
-```json
-{
-  "mcpServers": {
+**TeSingle version source**: `__about__.py` only (smithery.yaml auto-synced)
+- **No manual smithery.yaml edits**: Let CI handle synchronization
+- **Package structure**: `src/` layout for proper isolation
+- **Entry point**: `[project.scripts]` defines `pykrx-mcp` command
+- **Korean market specifics**: Tickers are 6-digit strings, dates are YYYYMMDD format
+- **Error handling**: Return error dicts rather than raising (better for LLM consumption)
+- **Automated releases**: Tag push = PyPI + Smithery deployment
     "pykrx": {"command": "uvx", "args": ["pykrx-mcp"]}
   }
 }
