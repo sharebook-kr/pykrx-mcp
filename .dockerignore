@@ -29,13 +29,6 @@ htmlcov/
 *.swo
 *~
 
-# Documentation
-*.md
-docs/
-
-# CI/CD
-.github/
-
 # Local development
 .env
 .env.local
