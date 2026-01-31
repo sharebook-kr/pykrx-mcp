@@ -11,7 +11,7 @@ import sys
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from pykrx_mcp.tools.etf_price import (
     get_etf_ohlcv_by_date as get_etf_ohlcv_impl,
@@ -49,6 +49,12 @@ app = FastAPI(
     title="pykrx-mcp REST API",
     description="Korean stock market data API for ChatGPT Actions",
     version="0.5.0",
+    servers=[
+        {
+            "url": "https://absolute-squid-sharebook-05d10e18.koyeb.app",
+            "description": "Production server"
+        }
+    ],
 )
 
 # Add CORS middleware
@@ -63,47 +69,47 @@ app.add_middleware(
 
 # Request models
 class StockOHLCVRequest(BaseModel):
-    ticker: str
-    start_date: str
-    end_date: str
-    adjusted: bool = True
+    ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
+    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
+    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
+    adjusted: bool = Field(True, description="Whether to adjust for stock splits")
 
 
 class TickerListRequest(BaseModel):
-    date: str
-    market: str = "KOSPI"
+    date: str = Field(..., description="Date in YYYYMMDD format (e.g., '20240101')")
+    market: str = Field("KOSPI", description="Market type: 'KOSPI', 'KOSDAQ', or 'KONEX'")
 
 
 class TickerNameRequest(BaseModel):
-    ticker: str
+    ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
 
 
 class MarketCapRequest(BaseModel):
-    ticker: str
-    start_date: str
-    end_date: str
+    ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
+    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
+    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
 
 
 class FundamentalRequest(BaseModel):
-    ticker: str
-    start_date: str
-    end_date: str
+    ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
+    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
+    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
 
 
 class TradingValueRequest(BaseModel):
-    ticker: str
-    start_date: str
-    end_date: str
+    ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
+    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
+    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
 
 
 class ETFOHLCVRequest(BaseModel):
-    ticker: str
-    start_date: str
-    end_date: str
+    ticker: str = Field(..., description="ETF ticker code (e.g., '152100' for KODEX 레버리지)")
+    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
+    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
 
 
 class ETFTickerListRequest(BaseModel):
-    date: str
+    date: str = Field(..., description="Date in YYYYMMDD format (e.g., '20240101')")
 
 
 # Endpoints
