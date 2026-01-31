@@ -17,8 +17,18 @@
 - 🤖 **AI 에이전트 통합**: Claude Desktop 등에서 바로 사용 가능
 - ⚡ **간편한 실행**: `uvx pykrx-mcp` 한 줄로 즉시 실행
 - 🔄 **자동 업데이트**: pykrx 업데이트 시 자동으로 MCP 서버도 업데이트
+- 🌐 **MCP Registry 등록**: [공식 MCP Registry](https://registry.modelcontextprotocol.io)에 등록된 서버
 
 ## 🚀 빠른 시작
+
+### Via MCP Registry (공식)
+
+[MCP Registry](https://registry.modelcontextprotocol.io)에서 설치:
+
+```bash
+# mcp-publisher CLI 사용
+mcp-publisher install io.github.sharebook-kr/pykrx-mcp
+```
 
 ### Via Smithery (권장)
 
