@@ -10,10 +10,9 @@ install:
 
 # 서버 실행 명령
 start:
-  command: python
+  command: uvx
   args:
-    - -m
-    - pykrx_mcp
+    - pykrx-mcp
 
 # MCP 프로토콜 정보
 transport: stdio
