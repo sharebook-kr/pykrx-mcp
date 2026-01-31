@@ -181,7 +181,7 @@ format_error_response("No data", ticker="999999")
 class TestValidateDateFormat:
     def test_valid_date(self):
         assert validate_date_format("20240101") == (True, "")
-    
+
     def test_invalid_format_with_hyphens(self):
         valid, msg = validate_date_format("2024-01-01")
         assert not valid
@@ -192,7 +192,7 @@ class TestValidateDateFormat:
 def test_valid_request(mock_stock):
     mock_df = pd.DataFrame({"종가": [70000, 71000]})
     mock_stock.get_market_ohlcv_by_date.return_value = mock_df
-    
+
     result = get_stock_ohlcv("005930", "20240101", "20240105")
     assert result["row_count"] == 2
 ```
@@ -215,7 +215,7 @@ jobs:
       - Install uv
       - Run pytest with coverage
       - Upload to Codecov
-  
+
   lint:
     - ruff check
     - ruff format --check
@@ -256,12 +256,12 @@ from ..utils import (
 def get_market_cap_by_date(ticker: str, start_date: str, end_date: str) -> dict:
     """
     Retrieve market capitalization data.
-    
+
     Args:
         ticker: 6-digit stock ticker (e.g., "005930")
         start_date: Start date in YYYYMMDD format
         end_date: End date in YYYYMMDD format
-    
+
     Returns:
         Dictionary with market cap, shares outstanding, etc.
     """
@@ -269,20 +269,20 @@ def get_market_cap_by_date(ticker: str, start_date: str, end_date: str) -> dict:
     valid, msg = validate_ticker_format(ticker)
     if not valid:
         return {"error": msg, "ticker": ticker}
-    
+
     valid, msg = validate_date_format(start_date)
     if not valid:
         return {"error": msg, "date": start_date}
-    
+
     # pykrx 호출
     df = stock.get_market_cap_by_date(start_date, end_date, ticker)
-    
+
     if df.empty:
         return format_error_response(
             f"No market cap data found for {ticker}",
             ticker=ticker, start_date=start_date, end_date=end_date
         )
-    
+
     return format_dataframe_response(
         df, ticker=ticker, start_date=start_date, end_date=end_date
     )
@@ -323,9 +323,9 @@ def get_market_ticker_list(date: str, market: str = "KOSPI") -> dict:
 @patch("pykrx_mcp.tools.ticker_info.stock")
 def test_get_market_ticker_list(mock_stock):
     mock_stock.get_market_ticker_list.return_value = ["005930", "000660"]
-    
+
     result = get_market_ticker_list("20240101", "KOSPI")
-    
+
     assert result["count"] == 2
     assert "005930" in result["tickers"]
 ```
@@ -347,17 +347,17 @@ def execute_pykrx_query(
 ) -> dict:
     """
     Execute any pykrx function dynamically.
-    
+
     Use this for advanced queries not covered by explicit tools.
     """
     # Allowlist 체크
     if function not in ALLOWED_FUNCTIONS:
         return {"error": f"Function {function} not allowed"}
-    
+
     # 동적 실행
     pykrx_module = getattr(pykrx, module)
     pykrx_func = getattr(pykrx_module, function)
-    
+
     result = pykrx_func(**parameters)
     return format_dataframe_response(result, **parameters)
 ```
@@ -520,6 +520,6 @@ docs: Update tool usage examples
 
 ---
 
-**Last Updated**: 2026-01-31  
-**Maintainer**: sharebook-kr  
+**Last Updated**: 2026-01-31
+**Maintainer**: sharebook-kr
 **License**: MIT

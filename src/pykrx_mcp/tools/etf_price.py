@@ -16,9 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 @mcp_tool_error_handler
-def get_etf_ohlcv_by_date(
-    ticker: str, start_date: str, end_date: str
-) -> dict:
+def get_etf_ohlcv_by_date(ticker: str, start_date: str, end_date: str) -> dict:
     """
     Retrieve ETF OHLCV (Open, High, Low, Close, Volume) data.
 
@@ -96,11 +94,9 @@ def get_etf_ticker_list(date: str) -> dict:
     tickers = stock.get_etf_ticker_list(date)
 
     if len(tickers) == 0:
-        return format_error_response(
-            f"No ETFs found on {date}", date=date
-        )
+        return format_error_response(f"No ETFs found on {date}", date=date)
 
     # Convert to list if it's not already
-    ticker_list = tickers.tolist() if hasattr(tickers, 'tolist') else list(tickers)
+    ticker_list = tickers.tolist() if hasattr(tickers, "tolist") else list(tickers)
 
     return {"date": date, "count": len(ticker_list), "tickers": ticker_list}

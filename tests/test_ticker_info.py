@@ -2,8 +2,6 @@
 
 from unittest.mock import patch
 
-import pytest
-
 from pykrx_mcp.tools.ticker_info import (
     get_market_ticker_list,
     get_market_ticker_name,

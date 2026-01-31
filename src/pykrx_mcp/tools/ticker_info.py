@@ -55,7 +55,7 @@ def get_market_ticker_list(date: str, market: str = "KOSPI") -> dict:
         )
 
     # Convert to list if it's not already
-    ticker_list = tickers.tolist() if hasattr(tickers, 'tolist') else list(tickers)
+    ticker_list = tickers.tolist() if hasattr(tickers, "tolist") else list(tickers)
 
     return {
         "date": date,

@@ -16,9 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 @mcp_tool_error_handler
-def get_market_fundamental_by_date(
-    ticker: str, start_date: str, end_date: str
-) -> dict:
+def get_market_fundamental_by_date(ticker: str, start_date: str, end_date: str) -> dict:
     """
     Retrieve fundamental data (PER, PBR, dividend yield, etc.) for a stock.
 

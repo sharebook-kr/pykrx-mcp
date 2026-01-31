@@ -3,7 +3,6 @@
 from unittest.mock import patch
 
 import pandas as pd
-import pytest
 
 from pykrx_mcp.tools.market_cap import get_market_cap_by_date
 
@@ -74,9 +73,7 @@ class TestGetMarketCapByDate:
     @patch("pykrx_mcp.tools.market_cap.stock")
     def test_pykrx_exception(self, mock_stock):
         """Should handle pykrx exceptions."""
-        mock_stock.get_market_cap_by_date.side_effect = Exception(
-            "Network error"
-        )
+        mock_stock.get_market_cap_by_date.side_effect = Exception("Network error")
 
         result = get_market_cap_by_date("005930", "20240101", "20240105")
 

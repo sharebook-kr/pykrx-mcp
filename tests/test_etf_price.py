@@ -3,7 +3,6 @@
 from unittest.mock import patch
 
 import pandas as pd
-import pytest
 
 from pykrx_mcp.tools.etf_price import get_etf_ohlcv_by_date, get_etf_ticker_list
 

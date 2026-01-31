@@ -3,7 +3,6 @@
 from unittest.mock import patch
 
 import pandas as pd
-import pytest
 
 from pykrx_mcp.tools.fundamental import get_market_fundamental_by_date
 
@@ -49,9 +48,7 @@ class TestGetMarketFundamentalByDate:
     @patch("pykrx_mcp.tools.fundamental.stock")
     def test_invalid_start_date(self, mock_stock):
         """Should reject invalid start date format."""
-        result = get_market_fundamental_by_date(
-            "005930", "2024-01-01", "20240105"
-        )
+        result = get_market_fundamental_by_date("005930", "2024-01-01", "20240105")
 
         mock_stock.get_market_fundamental_by_date.assert_not_called()
         assert "error" in result

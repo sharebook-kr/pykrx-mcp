@@ -10,15 +10,34 @@ import sys
 
 from mcp.server.fastmcp import FastMCP
 
+from .prompts import (
+    analyze_investor_flow,
+    analyze_stock_by_name,
+    screen_undervalued_stocks,
+)
 from .resources import get_krx_info, get_pykrx_manual
 from .tools import (
     get_etf_ohlcv_by_date as get_etf_ohlcv_impl,
+)
+from .tools import (
     get_etf_ticker_list as get_etf_ticker_list_impl,
+)
+from .tools import (
     get_market_cap_by_date as get_market_cap_impl,
+)
+from .tools import (
     get_market_fundamental_by_date as get_fundamental_impl,
+)
+from .tools import (
     get_market_ticker_list as get_ticker_list_impl,
+)
+from .tools import (
     get_market_ticker_name as get_ticker_name_impl,
+)
+from .tools import (
     get_market_trading_value_by_date as get_trading_value_impl,
+)
+from .tools import (
     get_stock_ohlcv as get_stock_ohlcv_impl,
 )
 
@@ -50,6 +69,80 @@ def _resource_krx_info() -> str:
 def _resource_pykrx_manual() -> str:
     """Comprehensive usage guide for pykrx MCP tools."""
     return get_pykrx_manual()
+
+
+# ===== MCP Prompts =====
+# Prompts provide pre-built workflows for common analysis tasks
+
+
+@mcp.prompt()
+def prompt_analyze_stock_by_name(
+    stock_name: str, period: str = "1M", analysis_type: str = "price"
+) -> str:
+    """
+    Analyze Korean stock by company name with automatic ticker lookup.
+
+    Use this when users ask about stocks by their Korean company name
+    instead of ticker codes. Handles the workflow of finding the ticker
+    and then analyzing the stock data.
+
+    Args:
+        stock_name: Company name in Korean (e.g., "삼성전자", "네이버")
+        period: Analysis period - "1W", "1M", "3M", "6M", "1Y" (default: "1M")
+        analysis_type: Type of analysis - "price", "fundamental", "investor" (default: "price")
+
+    Example:
+        prompt_analyze_stock_by_name("삼성전자", "3M", "price")
+    """
+    return analyze_stock_by_name(stock_name, period, analysis_type)
+
+
+@mcp.prompt()
+def prompt_analyze_investor_flow(
+    stock_name: str, period: str = "1M", focus_investor: str = "all"
+) -> str:
+    """
+    Analyze investor trading patterns (foreign, institutional, individual).
+
+    Provides step-by-step workflow to analyze supply/demand dynamics
+    by different investor types and their correlation with stock price.
+
+    Args:
+        stock_name: Company name in Korean (e.g., "삼성전자")
+        period: Analysis period - "1W", "1M", "3M", "6M", "1Y" (default: "1M")
+        focus_investor: Focus on specific type - "foreign", "institution", "individual", "all" (default: "all")
+
+    Example:
+        prompt_analyze_investor_flow("삼성전자", "1M", "foreign")
+    """
+    return analyze_investor_flow(stock_name, period, focus_investor)
+
+
+@mcp.prompt()
+def prompt_screen_undervalued_stocks(
+    max_per: float = 10.0,
+    max_pbr: float = 1.0,
+    market: str = "KOSPI",
+    min_market_cap: int = 1000,
+    sort_by: str = "PER",
+) -> str:
+    """
+    Screen for potentially undervalued stocks based on fundamental metrics.
+
+    Guides through multi-step workflow to find stocks with low PER/PBR,
+    filter by market cap, and analyze the results.
+
+    Args:
+        max_per: Maximum PER threshold (default: 10.0)
+        max_pbr: Maximum PBR threshold (default: 1.0)
+        market: Target market - "KOSPI", "KOSDAQ", "ALL" (default: "KOSPI")
+        min_market_cap: Minimum market cap in billions KRW (default: 1000)
+        sort_by: Sort by - "PER", "PBR", "MarketCap", "EPS" (default: "PER")
+
+    Example:
+        prompt_screen_undervalued_stocks(max_per=10, max_pbr=1, market="KOSPI")
+    """
+    return screen_undervalued_stocks(max_per, max_pbr, market, min_market_cap, sort_by)
 
 
 # ===== MCP Tools =====
@@ -126,9 +219,7 @@ def get_market_ticker_name(ticker: str) -> dict:
 
 
 @mcp.tool()
-def get_market_fundamental_by_date(
-    ticker: str, start_date: str, end_date: str
-) -> dict:
+def get_market_fundamental_by_date(ticker: str, start_date: str, end_date: str) -> dict:
     """
     Retrieve fundamental data (PER, PBR, dividend yield, etc.) for a stock.
 
@@ -168,7 +259,9 @@ def get_market_cap_by_date(ticker: str, start_date: str, end_date: str) -> dict:
 
 
 @mcp.tool()
-def get_market_trading_value_by_date(ticker: str, start_date: str, end_date: str) -> dict:
+def get_market_trading_value_by_date(
+    ticker: str, start_date: str, end_date: str
+) -> dict:
     """
     Retrieve trading value by investor type for supply/demand analysis.
 
