@@ -65,6 +65,7 @@ Claude Desktop 재시작 후 한국 주식 데이터를 바로 사용할 수 있
 - [pykrx 라이브러리](https://github.com/sharebook-kr/pykrx) - 데이터 소스
 - [MCP Protocol](https://modelcontextprotocol.io) - 프로토콜 사양
 - [API 문서](https://pykrx-xifs.onrender.com/docs) - REST API 문서
+- [개인정보 보호 정책](https://pykrx-xifs.onrender.com/privacy-policy) - Privacy Policy
 
 ---
 
