@@ -126,7 +126,7 @@ async def get_stock_ohlcv(request: StockOHLCVRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_stock_ohlcv: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/tools/get_market_ticker_list")
@@ -140,7 +140,7 @@ async def get_market_ticker_list(request: TickerListRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_market_ticker_list: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/tools/get_market_ticker_name")
@@ -154,7 +154,7 @@ async def get_market_ticker_name(request: TickerNameRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_market_ticker_name: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/tools/get_market_cap_by_date")
@@ -168,7 +168,7 @@ async def get_market_cap_by_date(request: MarketCapRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_market_cap_by_date: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/tools/get_market_fundamental_by_date")
@@ -182,7 +182,7 @@ async def get_market_fundamental_by_date(request: FundamentalRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_market_fundamental_by_date: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/tools/get_market_trading_value_by_date")
@@ -200,7 +200,7 @@ async def get_market_trading_value_by_date(request: TradingValueRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_market_trading_value_by_date: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/tools/get_etf_ohlcv_by_date")
@@ -218,7 +218,7 @@ async def get_etf_ohlcv_by_date(request: ETFOHLCVRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_etf_ohlcv_by_date: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 @app.post("/tools/get_etf_ticker_list")
@@ -232,7 +232,7 @@ async def get_etf_ticker_list(request: ETFTickerListRequest):
         return result
     except Exception as e:
         logger.error(f"Error in get_etf_ticker_list: {e}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) from e
 
 
 if __name__ == "__main__":
