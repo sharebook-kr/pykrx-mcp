@@ -1,0 +1,43 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.sharebook-kr/pykrx-mcp",
+  "title": "pykrx-mcp",
+  "description": "Korean stock market data (KOSPI/KOSDAQ) with ETF tracking and fundamental analysis",
+  "repository": {
+    "url": "https://github.com/sharebook-kr/pykrx-mcp",
+    "source": "github"
+  },
+  "version": "0.1.2",
+  "license": "MIT",
+  "homepage": "https://github.com/sharebook-kr/pykrx-mcp#readme",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "pykrx-mcp",
+      "version": "0.1.2",
+      "transport": {
+        "type": "stdio"
+      },
+      "arguments": [],
+      "environmentVariables": []
+    }
+  ],
+  "vendor": {
+    "name": "sharebook-kr",
+    "url": "https://github.com/sharebook-kr"
+  },
+  "categories": [
+    "finance",
+    "data"
+  ],
+  "keywords": [
+    "korean-stock-market",
+    "kospi",
+    "kosdaq",
+    "krx",
+    "market-data",
+    "etf",
+    "fundamental-analysis",
+    "pykrx"
+  ]
+}

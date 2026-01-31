@@ -9,6 +9,8 @@
 
 `pykrx-mcp`는 한국 주식 시장 데이터 라이브러리인 [pykrx](https://github.com/sharebook-kr/pykrx)를 [Model Context Protocol (MCP)](https://modelcontextprotocol.io) 서버로 제공하는 프로젝트입니다. Claude, GPT 등 AI 에이전트가 한국 주식 데이터를 직접 조회하고 분석할 수 있도록 지원합니다.
 
+<!-- mcp-name: io.github.sharebook-kr/pykrx-mcp -->
+
 ## ✨ 주요 기능
 
 - 📊 **실시간 한국 주식 데이터**: KOSPI, KOSDAQ 종목의 OHLCV 데이터 조회
