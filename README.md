@@ -66,11 +66,78 @@ Claude에게 다음과 같이 요청해보세요:
 git clone https://github.com/sharebook-kr/pykrx-mcp.git
 cd pykrx-mcp
 
-# 의존성 설치 (editable mode)
-uv pip install -e .
+# Python 의존성 설치
+uv sync --dev
 
-# 서버 실행 (stdio 모드로 실행되어 MCP 통신 대기)
+# Node.js 도구 설치 (MCP Inspector)
+npm install
+
+# 서버 실행
 pykrx-mcp
+```
+
+**필수 요구사항:**
+- Python 3.10+
+- Node.js 18+ (MCP Inspector용, [nodejs.org](https://nodejs.org)에서 설치)
+
+**개발 명령어:**
+```bash
+# MCP Inspector 실행
+npm run inspector
+
+# 테스트 실행
+pytest -v
+# 또는
+npm run test
+
+# 코드 포맷팅
+black src/
+# 또는
+npm run format
+
+# 린팅
+ruff check src/
+# 또는
+npm run lint
+```
+
+##uv 스크립트로 실행
+uv run inspector
+
+# 또는 직접 실행
+npx # 개발 환경에 포함된 Inspector 실행
+make inspector
+# 또는
+npm run inspector
+
+# 또는 전역 설치 후 사용
+npm install -g @modelcontextprotocol/inspector
+mcp-inspector uvx pykrx-mcp
+```
+
+#### 2. Claude Desktop 로그 확인
+
+Claude Desktop과 통신하면서 발생하는 로그를 실시간으로 확인:
+
+```bash
+# macOS
+tail -n 100 -f ~/Library/Logs/Claude/mcp*.log
+
+# Windows (PowerShell)
+Get-Content "$env:APPDATA\Claude\logs\mcp*.log" -Wait -Tail 100
+```
+
+#### 3. VS Code 디버거
+
+F5 키를 눌러 VS Code 디버거로 서버를 실행하고 중단점을 설정할 수 있습니다. (`.vscode/launch.json` 설정 포함)
+
+#### 4. 로깅 확인
+
+서버는 모든 로그를 `stderr`로 출력합니다 (`stdout`은 MCP 프로토콜용):
+
+```bash
+# 로그를 파일로 저장하며 실행
+pykrx-mcp 2> debug.log
 ```
 
 ### 직접 설치하여 사용

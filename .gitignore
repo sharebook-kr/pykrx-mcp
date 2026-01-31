@@ -28,12 +28,16 @@ env/
 .venv
 
 # IDEs
-.vscode/
 .idea/
 *.swp
 *.swo
 *~
 .DS_Store
+
+# VSCode (keep launch.json for debugging)
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
 
 # Testing
 .pytest_cache/
@@ -46,3 +50,7 @@ htmlcov/
 
 # Distribution
 *.whl
+
+# Node.js (for MCP Inspector)
+node_modules/
+package-lock.json

@@ -16,6 +16,7 @@ dependencies = [
     "pykrx>=1.0.46",
     "mcp[cli]>=1.1.2",
     "pandas>=2.0.0",
+    "setuptools>=65.0.0",
 ]
 keywords = ["mcp", "pykrx", "kospi", "kosdaq", "ai-agent", "krx"]
 classifiers = [
@@ -35,6 +36,14 @@ Issues = "https://github.com/sharebook-kr/pykrx-mcp/issues"
 
 [project.scripts]
 pykrx-mcp = "pykrx_mcp.server:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "ruff>=0.1.0",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/pykrx_mcp"]

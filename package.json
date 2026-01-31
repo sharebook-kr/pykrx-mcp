@@ -1,0 +1,16 @@
+{
+  "name": "pykrx-mcp-dev",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Development dependencies for pykrx-mcp",
+  "devDependencies": {
+    "@modelcontextprotocol/inspector": "^0.1.0"
+  },
+  "scripts": {
+    "inspector": "mcp-inspector uvx pykrx-mcp",
+    "test": "pytest -v",
+    "format": "black src/",
+    "lint": "ruff check src/",
+    "lint:fix": "ruff check --fix src/"
+  }
+}
