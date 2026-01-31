@@ -11,14 +11,15 @@ KOSPI, KOSDAQ 종목의 실시간 주가, 시가총액, 재무제표 등을 Chat
 
 ## 🚀 ChatGPT에서 사용하기
 
+**상세 가이드:** [CHATGPT_SETUP.md](./CHATGPT_SETUP.md)
+
 ### 1. Custom GPT 생성
 ChatGPT 우측 상단 → **Explore GPTs** → **Create**
 
 ### 2. Actions 설정
-**Configure** 탭 → **Create new action** → **Import from URL**:
-```
-https://pykrx-xifs.onrender.com/openapi.json
-```
+**Configure** 탭 → **Create new action** → **Import from URL**
+
+공개 REST API 엔드포인트 (곧 제공 예정)
 
 ### 3. 바로 사용
 "삼성전자 최근 한달 주가 보여줘"
@@ -60,12 +61,24 @@ Claude Desktop 재시작 후 한국 주식 데이터를 바로 사용할 수 있
 
 ---
 
+## � 배포
+
+**Koyeb 배포 가이드:** [KOYEB_DEPLOY.md](./KOYEB_DEPLOY.md)
+
+Docker 기반 배포를 지원합니다:
+```bash
+docker build -t pykrx-mcp .
+docker run -p 8000:8000 pykrx-mcp
+```
+
+---
+
 ## 🔗 관련 링크
 
+- [ChatGPT 설정 가이드](./CHATGPT_SETUP.md) - Custom GPT Actions 설정
+- [Koyeb 배포 가이드](./KOYEB_DEPLOY.md) - Docker 배포
 - [pykrx 라이브러리](https://github.com/sharebook-kr/pykrx) - 데이터 소스
 - [MCP Protocol](https://modelcontextprotocol.io) - 프로토콜 사양
-- [API 문서](https://pykrx-xifs.onrender.com/docs) - REST API 문서
-- [개인정보 보호 정책](https://pykrx-xifs.onrender.com/privacy-policy) - Privacy Policy
 
 ---
 
