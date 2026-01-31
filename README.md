@@ -100,6 +100,53 @@ pykrx-mcp --transport sse
 # 이제 http://localhost:8000 으로 접속 가능
 ```
 
+### 🌐 Render 배포 (클라우드 호스팅)
+
+pykrx-mcp를 Render에 배포하여 24/7 클라우드 서버로 실행할 수 있습니다:
+
+#### 원클릭 배포 (권장)
+
+1. 이 저장소를 GitHub에 fork
+2. [Render Dashboard](https://dashboard.render.com)에서 **New +** → **Blueprint** 선택
+3. fork한 저장소 연결
+4. `render.yaml` 자동 감지 및 배포
+
+상세한 가이드는 [RENDER_DEPLOYMENT.md](RENDER_DEPLOYMENT.md)를 참조하세요.
+
+#### 배포된 서버 사용
+
+Render가 제공하는 URL(예: `https://pykrx-mcp.onrender.com`)로 Claude에서 접속:
+
+```json
+{
+  "mcpServers": {
+    "pykrx-remote": {
+      "url": "https://your-app-name.onrender.com/sse"
+    }
+  }
+}
+```
+
+#### 로컬에서 SSE 서버 테스트
+
+```bash
+# SSE 서버 실행
+uv run uvicorn pykrx_mcp.asgi:app --host 0.0.0.0 --port 8000
+
+# 다른 터미널에서 테스트
+curl http://localhost:8000/sse
+```
+
+**장점:**
+- 무료 플랜 사용 가능 (월 750시간)
+- 자동 HTTPS 인증서
+- GitHub 연동 자동 배포
+- 로그 및 모니터링 대시보드
+
+**주의사항:**
+- 무료 플랜은 비활성 시 슬립 모드로 전환 (첫 요청 시 웨이크업에 ~30초 소요)
+- 실제 프로덕션 사용 시 유료 플랜 권장
+
 ## 💬 스마트 프롬프트 (Prompts)
 
 pykrx-mcp는 복잡한 워크플로우를 자동화하는 **MCP Prompts**를 제공합니다:

@@ -334,24 +334,19 @@ def main():
         help="Transport protocol: stdio for standard I/O (default), sse for HTTP/SSE",
     )
     parser.add_argument(
-        "--host",
-        default=os.getenv("MCP_HOST", "0.0.0.0"),
-        help="Host to bind to for SSE transport (default: 0.0.0.0)",
-    )
-    parser.add_argument(
-        "--port",
-        type=int,
-        default=int(os.getenv("MCP_PORT", "8000")),
-        help="Port to bind to for SSE transport (default: 8000)",
+        "--mount-path",
+        default=os.getenv("MCP_MOUNT_PATH", None),
+        help="Optional mount path for SSE transport",
     )
 
     args = parser.parse_args()
 
     if args.transport == "sse":
-        logger.info(
-            f"Starting pykrx-mcp server with SSE transport on {args.host}:{args.port}"
-        )
-        mcp.run(transport="sse", host=args.host, port=args.port)
+        # Use uvicorn via environment variables for host/port configuration
+        # Default: HOST=0.0.0.0 PORT=8000
+        logger.info("Starting pykrx-mcp server with SSE transport")
+        logger.info("Configure via: HOST=... PORT=... environment variables")
+        mcp.run(transport="sse", mount_path=args.mount_path)
     else:
         logger.info("Starting pykrx-mcp server with stdio transport")
         mcp.run()
