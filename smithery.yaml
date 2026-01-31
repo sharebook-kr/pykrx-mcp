@@ -15,8 +15,6 @@ start:
     - pykrx-mcp
 
 # HTTP/SSE transport (Smithery 호스팅용)
-# 환경 변수로 제어:
-# MCP_TRANSPORT=sse MCP_HOST=0.0.0.0 MCP_PORT=8000 pykrx-mcp
 http:
   command: uvx
   args:
@@ -27,6 +25,38 @@ http:
     - "0.0.0.0"
     - --port
     - "8000"
+
+# MCP capabilities
+capabilities:
+  tools:
+    - name: get_market_ticker_list
+      description: Get list of stock tickers for KOSPI/KOSDAQ market
+    - name: get_market_ticker_name
+      description: Search stock ticker by Korean company name
+    - name: get_stock_ohlcv
+      description: Get stock OHLCV (Open, High, Low, Close, Volume) data
+    - name: get_market_fundamental_by_date
+      description: Get fundamental data (PER, PBR, EPS, etc.)
+    - name: get_market_cap_by_date
+      description: Get market capitalization data
+    - name: get_market_trading_value_by_date
+      description: Get trading value by investor type
+    - name: get_etf_ticker_list
+      description: Get list of ETF tickers
+    - name: get_etf_ohlcv_by_date
+      description: Get ETF OHLCV data
+  resources:
+    - uri: krx://info
+      description: General information about Korean stock market (KRX)
+    - uri: krx://pykrx-manual
+      description: Comprehensive usage guide for pykrx MCP tools
+  prompts:
+    - name: prompt_analyze_stock_by_name
+      description: Analyze Korean stock by company name with automatic ticker lookup
+    - name: prompt_analyze_investor_flow
+      description: Analyze investor trading patterns (foreign, institutional, individual)
+    - name: prompt_screen_undervalued_stocks
+      description: Screen for potentially undervalued stocks based on fundamental metrics
 
 # MCP 프로토콜 정보
 transport: stdio
