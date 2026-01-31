@@ -44,7 +44,7 @@
 
 ### Privacy Policy:
 
-- **Privacy policy URL**: 
+- **Privacy policy URL**:
   ```
   https://pykrx-xifs.onrender.com/privacy-policy
   ```
@@ -125,5 +125,5 @@
 
 ---
 
-**문의사항:**  
+**문의사항:**
 GitHub Issues: https://github.com/sharebook-kr/pykrx-mcp/issues
