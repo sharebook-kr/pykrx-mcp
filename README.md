@@ -1,5 +1,10 @@
 # pykrx-mcp
 
+[![CI](https://github.com/sharebook-kr/pykrx-mcp/actions/workflows/ci.yml/badge.svg)](https://github.com/sharebook-kr/pykrx-mcp/actions/workflows/ci.yml)
+[![PyPI version](https://badge.fury.io/py/pykrx-mcp.svg)](https://badge.fury.io/py/pykrx-mcp)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **한국 주식 시장 데이터를 AI 에이전트에게!**
 
 `pykrx-mcp`는 한국 주식 시장 데이터 라이브러리인 [pykrx](https://github.com/sharebook-kr/pykrx)를 [Model Context Protocol (MCP)](https://modelcontextprotocol.io) 서버로 제공하는 프로젝트입니다. Claude, GPT 등 AI 에이전트가 한국 주식 데이터를 직접 조회하고 분석할 수 있도록 지원합니다.
@@ -33,7 +38,7 @@ powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 
 Claude Desktop에서 한국 주식 데이터를 사용하려면 설정 파일을 수정하세요:
 
-**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`  
+**macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
