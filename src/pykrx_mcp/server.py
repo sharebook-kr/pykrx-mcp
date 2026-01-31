@@ -6,7 +6,6 @@ to AI agents via the Model Context Protocol (MCP).
 """
 
 import argparse
-import json
 import logging
 import os
 import sys

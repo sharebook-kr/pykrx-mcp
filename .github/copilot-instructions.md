@@ -204,7 +204,36 @@ uv pip install -e .     # Editable install with uv
 pykrx-mcp              # Run server (blocks on stdio)
 ```
 
-**TeSingle version source**: `__about__.py` only (smithery.yaml auto-synced)
+**CRITICAL: Pre-commit Validation (MANDATORY)**
+
+Before every commit, MUST run these checks:
+
+```bash
+# 1. Lint check (fix automatically)
+uv run ruff check --fix src/ tests/
+
+# 2. Format check
+uv run black src/ tests/
+
+# 3. Type check (optional but recommended)
+uv run mypy src/
+
+# 4. Run tests
+uv run pytest -v
+```
+
+**Why this is critical:**
+- Prevents CI failures from simple linting errors
+- Ensures code quality before pushing
+- Saves time by catching issues locally
+- Required for clean git history
+
+**Quick validation command:**
+```bash
+uv run ruff check --fix src/ tests/ && uv run black src/ tests/ && uv run pytest
+```
+
+**Single version source**: `__about__.py` only (smithery.yaml auto-synced)
 - **No manual smithery.yaml edits**: Let CI handle synchronization
 - **Package structure**: `src/` layout for proper isolation
 - **Entry point**: `[project.scripts]` defines `pykrx-mcp` command
