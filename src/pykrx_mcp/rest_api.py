@@ -52,7 +52,7 @@ app = FastAPI(
     servers=[
         {
             "url": "https://absolute-squid-sharebook-05d10e18.koyeb.app",
-            "description": "Production server"
+            "description": "Production server",
         }
     ],
 )
@@ -70,14 +70,20 @@ app.add_middleware(
 # Request models
 class StockOHLCVRequest(BaseModel):
     ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
-    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
-    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
+    start_date: str = Field(
+        ..., description="Start date in YYYYMMDD format (e.g., '20240101')"
+    )
+    end_date: str = Field(
+        ..., description="End date in YYYYMMDD format (e.g., '20240131')"
+    )
     adjusted: bool = Field(True, description="Whether to adjust for stock splits")
 
 
 class TickerListRequest(BaseModel):
     date: str = Field(..., description="Date in YYYYMMDD format (e.g., '20240101')")
-    market: str = Field("KOSPI", description="Market type: 'KOSPI', 'KOSDAQ', or 'KONEX'")
+    market: str = Field(
+        "KOSPI", description="Market type: 'KOSPI', 'KOSDAQ', or 'KONEX'"
+    )
 
 
 class TickerNameRequest(BaseModel):
@@ -86,26 +92,44 @@ class TickerNameRequest(BaseModel):
 
 class MarketCapRequest(BaseModel):
     ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
-    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
-    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
+    start_date: str = Field(
+        ..., description="Start date in YYYYMMDD format (e.g., '20240101')"
+    )
+    end_date: str = Field(
+        ..., description="End date in YYYYMMDD format (e.g., '20240131')"
+    )
 
 
 class FundamentalRequest(BaseModel):
     ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
-    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
-    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
+    start_date: str = Field(
+        ..., description="Start date in YYYYMMDD format (e.g., '20240101')"
+    )
+    end_date: str = Field(
+        ..., description="End date in YYYYMMDD format (e.g., '20240131')"
+    )
 
 
 class TradingValueRequest(BaseModel):
     ticker: str = Field(..., description="6-digit stock ticker code (e.g., '005930')")
-    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
-    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
+    start_date: str = Field(
+        ..., description="Start date in YYYYMMDD format (e.g., '20240101')"
+    )
+    end_date: str = Field(
+        ..., description="End date in YYYYMMDD format (e.g., '20240131')"
+    )
 
 
 class ETFOHLCVRequest(BaseModel):
-    ticker: str = Field(..., description="ETF ticker code (e.g., '152100' for KODEX 레버리지)")
-    start_date: str = Field(..., description="Start date in YYYYMMDD format (e.g., '20240101')")
-    end_date: str = Field(..., description="End date in YYYYMMDD format (e.g., '20240131')")
+    ticker: str = Field(
+        ..., description="ETF ticker code (e.g., '152100' for KODEX 레버리지)"
+    )
+    start_date: str = Field(
+        ..., description="Start date in YYYYMMDD format (e.g., '20240101')"
+    )
+    end_date: str = Field(
+        ..., description="End date in YYYYMMDD format (e.g., '20240131')"
+    )
 
 
 class ETFTickerListRequest(BaseModel):
