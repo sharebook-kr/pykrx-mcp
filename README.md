@@ -100,20 +100,13 @@ Claude Desktop 재시작 후 한국 주식 데이터를 바로 사용할 수 있
 
 ---
 
-## 📄 라이선스
+## ☕ 후원하기
 
-MIT License - 자유롭게 사용하세요!
+프로젝트가 도움이 되었다면 개발자를 응원해주세요!
 
-## 🤝 기여
-
-이슈와 PR은 언제나 환영합니다!
-
-- 버그 리포트: [Issues](https://github.com/sharebook-kr/pykrx-mcp/issues)
-- 기능 제안: [Discussions](https://github.com/sharebook-kr/pykrx-mcp/discussions)
+[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub-pink?style=for-the-badge&logo=github)](https://github.com/sponsors/sharebook-kr)
 
 ---
-
-**Made with ❤️ by sharebook-kr**
 
 ## 📄 라이선스
 
