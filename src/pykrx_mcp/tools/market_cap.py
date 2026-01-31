@@ -12,9 +12,7 @@ from ..utils import (
 
 
 @mcp_tool_error_handler
-def get_market_cap_by_date(
-    ticker: str, start_date: str, end_date: str
-) -> dict:
+def get_market_cap_by_date(ticker: str, start_date: str, end_date: str) -> dict:
     """
     Retrieve market capitalization data for a stock.
 
@@ -29,7 +27,8 @@ def get_market_cap_by_date(
         - start_date: Query start date
         - end_date: Query end date
         - row_count: Number of data rows
-        - data: List of dictionaries with market cap data (시가총액, 거래량, 거래대금, 상장주식수)
+        - data: List of dictionaries with market cap data
+          (시가총액, 거래량, 거래대금, 상장주식수)
         - error: Error message if any (only present on error)
 
     Note:
@@ -60,7 +59,8 @@ def get_market_cap_by_date(
 
     if df.empty:
         return format_error_response(
-            f"No market cap data found for ticker {ticker} between {start_date} and {end_date}",
+            f"No market cap data found for ticker {ticker} "
+            f"between {start_date} and {end_date}",
             ticker=ticker,
             start_date=start_date,
             end_date=end_date,

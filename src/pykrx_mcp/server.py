@@ -110,7 +110,8 @@ def prompt_analyze_investor_flow(
     Args:
         stock_name: Company name in Korean (e.g., "삼성전자")
         period: Analysis period - "1W", "1M", "3M", "6M", "1Y" (default: "1M")
-        focus_investor: Focus on specific type - "foreign", "institution", "individual", "all" (default: "all")
+        focus_investor: Focus on specific type - "foreign", "institution",
+            "individual", "all" (default: "all")
 
     Example:
         prompt_analyze_investor_flow("삼성전자", "1M", "foreign")
@@ -245,7 +246,8 @@ def get_market_cap_by_date(ticker: str, start_date: str, end_date: str) -> dict:
     """
     Retrieve market capitalization data for a stock.
 
-    Use this tool to get market cap, trading volume, trading value, and outstanding shares.
+    Use this tool to get market cap, trading volume, trading value,
+    and outstanding shares.
 
     Args:
         ticker: 6-digit stock ticker code (e.g., "005930" for Samsung Electronics)

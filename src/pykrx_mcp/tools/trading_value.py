@@ -33,7 +33,8 @@ def get_market_trading_value_by_date(
         - end_date: Query end date
         - row_count: Number of data rows
         - data: List of dictionaries with trading value by investor type
-          (금융투자, 보험, 투신, 사모, 은행, 기타금융, 연기금등, 기타법인, 개인, 외국인, 기타외국인)
+          (금융투자, 보험, 투신, 사모, 은행, 기타금융, 연기금등, 기타법인,
+          개인, 외국인, 기타외국인)
         - error: Error message if any (only present on error)
 
     Note:
@@ -67,7 +68,8 @@ def get_market_trading_value_by_date(
 
     if df.empty:
         return format_error_response(
-            f"No trading value data found for ticker {ticker} between {start_date} and {end_date}",
+            f"No trading value data found for ticker {ticker} "
+            f"between {start_date} and {end_date}",
             ticker=ticker,
             start_date=start_date,
             end_date=end_date,

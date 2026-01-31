@@ -19,18 +19,15 @@ def update_smithery_version(new_version: str) -> None:
     """Update version in smithery.yaml"""
     smithery_file = Path(__file__).parent.parent / "smithery.yaml"
     content = smithery_file.read_text()
-    
+
     # smithery.yaml의 version 필드 업데이트 (콜론 형식)
     updated = re.sub(
-        r'^version:\s*[\d.]+',
-        f'version: {new_version}',
-        content,
-        flags=re.MULTILINE
+        r"^version:\s*[\d.]+", f"version: {new_version}", content, flags=re.MULTILINE
     )
-    
+
     if updated == content:
         raise ValueError("Failed to update version in smithery.yaml")
-    
+
     smithery_file.write_text(updated)
     print(f"✓ Updated smithery.yaml to version {new_version}")
 

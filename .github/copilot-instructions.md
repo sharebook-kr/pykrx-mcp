@@ -115,11 +115,11 @@ When adding new MCP tools to `server.py`:
 def get_market_data(ticker: str, date: str) -> dict:
     """
     Clear description of what this does and when to use it.
-    
+
     Args:
         ticker: Specific format explanation (e.g., "6-digit code")
         date: Format details (e.g., "YYYYMMDD")
-    
+
     Returns:
         Structure description
     """
@@ -149,7 +149,7 @@ def get_resource_name() -> str:
     """Brief description of what this resource provides."""
     return """
     # Resource Title
-    
+
     Comprehensive documentation that the AI model will read.
     Include:
    Version Sync Script
