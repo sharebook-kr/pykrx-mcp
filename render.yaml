@@ -4,7 +4,7 @@ services:
     name: pykrx
     runtime: python
     plan: free  # 무료 플랜 사용, 필요시 변경
-    buildCommand: pip install uv && uv sync --frozen
+    buildCommand: uv sync --frozen && uv cache prune --ci
     startCommand: uv run uvicorn pykrx_mcp.asgi:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
