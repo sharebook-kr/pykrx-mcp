@@ -62,6 +62,32 @@ Claude Desktop에서 한국 주식 데이터를 사용하려면 설정 파일을
 
 설정 후 Claude Desktop을 재시작하면 한국 주식 데이터를 조회할 수 있습니다!
 
+### HTTP/SSE Transport (호스팅용)
+
+로컬이 아닌 원격 서버에서 실행하거나 Smithery에서 스캔하려면 HTTP/SSE transport를 사용하세요:
+
+```bash
+# HTTP/SSE 모드로 실행 (포트 8000)
+pykrx-mcp --transport sse --host 0.0.0.0 --port 8000
+
+# 환경 변수로 제어
+MCP_TRANSPORT=sse MCP_HOST=0.0.0.0 MCP_PORT=8000 pykrx-mcp
+```
+
+**Transport 모드:**
+- `stdio` (기본값): 로컬 Claude Desktop 연동, 표준 입출력 사용
+- `sse`: HTTP Server-Sent Events, 원격 접속 및 Smithery 스캔 지원
+
+**사용 예시:**
+```bash
+# Docker 컨테이너에서 실행
+docker run -p 8000:8000 -e MCP_TRANSPORT=sse pykrx-mcp
+
+# 개발 서버로 실행
+pykrx-mcp --transport sse
+# 이제 http://localhost:8000 으로 접속 가능
+```
+
 ## 💬 스마트 프롬프트 (Prompts)
 
 pykrx-mcp는 복잡한 워크플로우를 자동화하는 **MCP Prompts**를 제공합니다:

@@ -5,7 +5,9 @@ This module provides a FastMCP server that exposes pykrx functionality
 to AI agents via the Model Context Protocol (MCP).
 """
 
+import argparse
 import logging
+import os
 import sys
 
 from mcp.server.fastmcp import FastMCP
@@ -324,8 +326,35 @@ def get_etf_ticker_list(date: str) -> dict:
 
 def main():
     """Entry point for the MCP server."""
-    logger.info("Starting pykrx-mcp server")
-    mcp.run()
+    parser = argparse.ArgumentParser(description="pykrx-mcp server")
+    parser.add_argument(
+        "--transport",
+        choices=["stdio", "sse"],
+        default=os.getenv("MCP_TRANSPORT", "stdio"),
+        help="Transport protocol: stdio for standard I/O (default), sse for HTTP/SSE",
+    )
+    parser.add_argument(
+        "--host",
+        default=os.getenv("MCP_HOST", "0.0.0.0"),
+        help="Host to bind to for SSE transport (default: 0.0.0.0)",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=int(os.getenv("MCP_PORT", "8000")),
+        help="Port to bind to for SSE transport (default: 8000)",
+    )
+
+    args = parser.parse_args()
+
+    if args.transport == "sse":
+        logger.info(
+            f"Starting pykrx-mcp server with SSE transport on {args.host}:{args.port}"
+        )
+        mcp.run(transport="sse", host=args.host, port=args.port)
+    else:
+        logger.info("Starting pykrx-mcp server with stdio transport")
+        mcp.run()
 
 
 if __name__ == "__main__":
