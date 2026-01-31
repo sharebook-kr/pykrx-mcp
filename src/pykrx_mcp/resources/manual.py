@@ -114,6 +114,14 @@ def get_pykrx_manual() -> str:
     - **No options/futures:** Only equity (stock) data
     - **Korean market only:** No access to US, EU, or other markets
     - **Historical limit:** Some stocks have limited history before IPO
+    - **Trading value/volume data issues:** The `get_market_trading_value_by_date` 
+      and related investor trading functions may intermittently return empty results 
+      due to:
+      - KRX website structure changes requiring pykrx library updates
+      - Network/API connectivity issues
+      - Specific date range incompatibilities
+      **Workaround:** Try dates from 1-2 years ago, or use OHLCV/fundamental 
+      data as alternatives. Check pykrx GitHub issues for updates.
 
     ## 7. Quick Reference Examples
 

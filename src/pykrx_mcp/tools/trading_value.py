@@ -69,7 +69,12 @@ def get_market_trading_value_by_date(
     if df.empty:
         return format_error_response(
             f"No trading value data found for ticker {ticker} "
-            f"between {start_date} and {end_date}",
+            f"between {start_date} and {end_date}. "
+            f"This may be due to: (1) Invalid date range or non-trading days, "
+            f"(2) KRX website changes requiring pykrx library update, or "
+            f"(3) Temporary network/API issues. Try: (a) Different date range "
+            f"(e.g., 1-2 years ago), (b) Check if other data tools work, or "
+            f"(c) Verify trading days at data.krx.co.kr",
             ticker=ticker,
             start_date=start_date,
             end_date=end_date,
