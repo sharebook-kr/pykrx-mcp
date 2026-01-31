@@ -12,14 +12,11 @@ ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     UV_SYSTEM_PYTHON=1
 
-# Copy dependency files
-COPY pyproject.toml uv.lock ./
+# Copy all files (needed for hatchling to read __about__.py)
+COPY . .
 
 # Install dependencies using uv
 RUN uv sync --frozen --no-dev
-
-# Copy application code
-COPY . .
 
 # Expose port (Koyeb will override this)
 EXPOSE 8000
