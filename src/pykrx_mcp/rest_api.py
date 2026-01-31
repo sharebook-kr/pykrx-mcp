@@ -123,7 +123,8 @@ async def privacy_policy():
         <title>개인정보 보호 정책 - pykrx-mcp</title>
         <style>
             body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                    'Helvetica Neue', Arial, sans-serif;
                 line-height: 1.6;
                 max-width: 800px;
                 margin: 0 auto;
@@ -165,7 +166,7 @@ async def privacy_policy():
     </head>
     <body>
         <h1>개인정보 보호 정책</h1>
-        
+
         <div class="highlight">
             <strong>최종 업데이트:</strong> 2024년 1월<br>
             <strong>서비스명:</strong> pykrx-mcp (Korean Stock Market Data API)
@@ -174,7 +175,7 @@ async def privacy_policy():
         <div class="section">
             <h2>1. 개요</h2>
             <p>
-                pykrx-mcp는 한국 주식 시장의 공개 데이터를 제공하는 API 서비스입니다. 
+                pykrx-mcp는 한국 주식 시장의 공개 데이터를 제공하는 API 서비스입니다.
                 본 서비스는 <strong>개인정보를 수집, 저장, 처리하지 않습니다</strong>.
             </p>
         </div>
@@ -231,7 +232,7 @@ async def privacy_policy():
         <div class="section">
             <h2>6. 오픈소스</h2>
             <p>
-                본 프로젝트는 MIT 라이선스의 오픈소스 소프트웨어입니다. 
+                본 프로젝트는 MIT 라이선스의 오픈소스 소프트웨어입니다.
                 소스 코드는 GitHub에서 공개적으로 확인할 수 있습니다:
             </p>
             <p>
@@ -255,7 +256,10 @@ async def privacy_policy():
             <h2>8. 연락처</h2>
             <p>
                 서비스에 대한 문의사항이 있으시면 GitHub Issues를 통해 연락해주세요:<br>
-                <a href="https://github.com/sharebook-kr/pykrx-mcp/issues" target="_blank">
+                <a
+                    href="https://github.com/sharebook-kr/pykrx-mcp/issues"
+                    target="_blank"
+                >
                     https://github.com/sharebook-kr/pykrx-mcp/issues
                 </a>
             </p>
@@ -264,7 +268,7 @@ async def privacy_policy():
         <div class="section">
             <h2>9. 정책 변경</h2>
             <p>
-                본 개인정보 보호 정책은 필요에 따라 업데이트될 수 있습니다. 
+                본 개인정보 보호 정책은 필요에 따라 업데이트될 수 있습니다.
                 중요한 변경 사항이 있을 경우 GitHub 리포지토리를 통해 공지됩니다.
             </p>
         </div>
@@ -272,7 +276,11 @@ async def privacy_policy():
         <div class="footer">
             <p>
                 <strong>pykrx-mcp</strong> - Korean Stock Market Data API<br>
-                Powered by <a href="https://github.com/sharebook-kr/pykrx" target="_blank">pykrx</a> library
+                Powered by
+                <a href="https://github.com/sharebook-kr/pykrx" target="_blank">
+                    pykrx
+                </a>
+                library
             </p>
         </div>
     </body>
