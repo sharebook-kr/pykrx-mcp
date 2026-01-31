@@ -45,7 +45,8 @@ def screen_undervalued_stocks(
 ```python
 # {"KOSPI 종목" if market != "ALL" else "KOSPI + KOSDAQ 종목"}
 kospi_tickers = get_market_ticker_list("{today}", "KOSPI")
-{"kosdaq_tickers = get_market_ticker_list('" + today + "', 'KOSDAQ')" if market == "ALL" else ""}
+{"kosdaq_tickers = get_market_ticker_list('" + today + "', " if market == "ALL" else ""}
+{"    'KOSDAQ')" if market == "ALL" else ""}
 {"all_tickers = list(kospi_tickers) + list(kosdaq_tickers)" if market == "ALL" else ""}
 ```
 
@@ -61,8 +62,10 @@ fundamental_data = get_market_fundamental_by_date(
 )
 
 {"# KOSDAQ도 조회 (market='ALL'인 경우)" if market == "ALL" else ""}
-{"fundamental_kosdaq = get_market_fundamental_by_date(date='" + today + "', market='KOSDAQ')" if market == "ALL" else ""}
-{"fundamental_data = pd.concat([fundamental_data, fundamental_kosdaq])" if market == "ALL" else ""}
+{"fundamental_kosdaq = get_market_fundamental_by_date(" if market == "ALL" else ""}
+{"    date='" + today + "', market='KOSDAQ')" if market == "ALL" else ""}
+{"fundamental_data = pd.concat([fundamental_data, " if market == "ALL" else ""}
+{"    fundamental_kosdaq])" if market == "ALL" else ""}
 ```
 
 ### Step 3: 시가총액 데이터 조회 (필터링용)

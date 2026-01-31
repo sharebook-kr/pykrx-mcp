@@ -89,7 +89,8 @@ def prompt_analyze_stock_by_name(
     Args:
         stock_name: Company name in Korean (e.g., "삼성전자", "네이버")
         period: Analysis period - "1W", "1M", "3M", "6M", "1Y" (default: "1M")
-        analysis_type: Type of analysis - "price", "fundamental", "investor" (default: "price")
+        analysis_type: Type of analysis - "price", "fundamental",
+            "investor" (default: "price")
 
     Example:
         prompt_analyze_stock_by_name("삼성전자", "3M", "price")

@@ -16,7 +16,8 @@ def analyze_investor_flow(
     Args:
         stock_name: Company name in Korean (e.g., "삼성전자")
         period: Analysis period - "1W", "1M", "3M", "6M", "1Y" (default: "1M")
-        focus_investor: Focus on specific investor - "foreign", "institution", "individual", "all" (default: "all")
+        focus_investor: Focus on specific investor - "foreign",
+            "institution", "individual", "all" (default: "all")
 
     Returns:
         Formatted prompt string for investor flow analysis

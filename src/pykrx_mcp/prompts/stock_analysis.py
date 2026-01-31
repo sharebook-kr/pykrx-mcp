@@ -17,7 +17,8 @@ def analyze_stock_by_name(
     Args:
         stock_name: Company name in Korean or English (e.g., "삼성전자", "NAVER")
         period: Analysis period - "1W", "1M", "3M", "6M", "1Y", etc. (default: "1M")
-        analysis_type: Type of analysis - "price", "fundamental", "investor" (default: "price")
+        analysis_type: Type of analysis - "price", "fundamental",
+            "investor" (default: "price")
 
     Returns:
         Formatted prompt string for the AI model
@@ -107,7 +108,8 @@ def analyze_stock_by_name(
 1. **수급 데이터 조회**
    ```
    # 투자자별 순매수 데이터 (외국인, 기관, 개인)
-   get_market_net_purchases_of_equities_by_ticker("{start_str}", "{end_str}", "{ticker}")
+   get_market_net_purchases_of_equities_by_ticker(
+       "{start_str}", "{end_str}", "{ticker}")
    ```
 
 2. **주가와 함께 분석**
