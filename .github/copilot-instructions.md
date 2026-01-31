@@ -98,6 +98,26 @@ git push origin v0.2.0
 - Version bumping uses shell script to parse and increment `__about__.py`
 - Requires GitHub environment named `pypi` with OIDC setup
 
+## REST API Consistency Rule
+
+**CRITICAL:** When adding new MCP tools to `server.py`, you MUST also add corresponding REST API endpoints to `rest_api.py` for ChatGPT Actions compatibility.
+
+**Required steps:**
+1. Add tool to `server.py` with `@mcp.tool()` decorator
+2. Add endpoint to `rest_api.py` with proper request model
+3. Regenerate `openapi.json` by running the server locally
+4. Test both MCP and REST API endpoints
+
+**Current mapping (all 8 tools must have REST endpoints):**
+- `get_stock_ohlcv` → `POST /tools/get_stock_ohlcv`
+- `get_market_ticker_list` → `POST /tools/get_market_ticker_list`
+- `get_market_ticker_name` → `POST /tools/get_market_ticker_name`
+- `get_market_fundamental_by_date` → `POST /tools/get_market_fundamental_by_date`
+- `get_market_cap_by_date` → `POST /tools/get_market_cap_by_date`
+- `get_market_trading_value_by_date` → `POST /tools/get_market_trading_value_by_date` (수급분석)
+- `get_etf_ohlcv_by_date` → `POST /tools/get_etf_ohlcv_by_date`
+- `get_etf_ticker_list` → `POST /tools/get_etf_ticker_list`
+
 ## Adding New Tools
 
 When adding new MCP tools to `server.py`:

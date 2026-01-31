@@ -18,7 +18,7 @@ dependencies = [
     "pandas>=2.0.0",
     "setuptools>=65.0.0",
     "fastapi>=0.115.0",
-    "uvicorn[standard]>=0.32.0",
+    "uvicorn>=0.32.0",
 ]
 keywords = ["mcp", "pykrx", "kospi", "kosdaq", "ai-agent", "krx"]
 classifiers = [
@@ -38,7 +38,7 @@ Issues = "https://github.com/sharebook-kr/pykrx-mcp/issues"
 
 [project.scripts]
 pykrx-mcp = "pykrx_mcp.server:main"
-pykrx-mcp-sse = "pykrx_mcp.main:main"
+pykrx-rest = "pykrx_mcp.rest_api:app"
 
 [dependency-groups]
 dev = [

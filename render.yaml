@@ -1,12 +1,12 @@
-# Render Blueprint for pykrx SSE Server
 services:
   - type: web
-    name: pykrx
+    name: pykrx-rest-api
     runtime: python
-    plan: free  # 무료 플랜 사용, 필요시 변경
-    buildCommand: uv sync --frozen && uv cache prune --ci
-    startCommand: uv run --no-sync uvicorn pykrx_mcp.asgi:app --host 0.0.0.0 --port $PORT
+    plan: free
+    region: oregon
+    buildCommand: pip install uv && uv sync
+    startCommand: uv run uvicorn pykrx_mcp.rest_api:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
-        value: "3.12"
-    healthCheckPath: /sse
+        value: 3.11.0
+    healthCheckPath: /health
