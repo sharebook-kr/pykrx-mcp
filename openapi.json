@@ -23,6 +23,25 @@
         }
       }
     },
+    "/privacy-policy": {
+      "get": {
+        "summary": "Privacy Policy",
+        "description": "Privacy policy page for ChatGPT Actions.",
+        "operationId": "privacy_policy_privacy_policy_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/tools/get_stock_ohlcv": {
       "post": {
         "summary": "Get Stock Ohlcv",
@@ -360,19 +379,24 @@
       },
       "FundamentalRequest": {
         "properties": {
-          "date": {
+          "ticker": {
             "type": "string",
-            "title": "Date"
+            "title": "Ticker"
           },
-          "market": {
+          "start_date": {
             "type": "string",
-            "title": "Market",
-            "default": "KOSPI"
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "string",
+            "title": "End Date"
           }
         },
         "type": "object",
         "required": [
-          "date"
+          "ticker",
+          "start_date",
+          "end_date"
         ],
         "title": "FundamentalRequest"
       },
@@ -391,19 +415,24 @@
       },
       "MarketCapRequest": {
         "properties": {
-          "date": {
+          "ticker": {
             "type": "string",
-            "title": "Date"
+            "title": "Ticker"
           },
-          "market": {
+          "start_date": {
             "type": "string",
-            "title": "Market",
-            "default": "KOSPI"
+            "title": "Start Date"
+          },
+          "end_date": {
+            "type": "string",
+            "title": "End Date"
           }
         },
         "type": "object",
         "required": [
-          "date"
+          "ticker",
+          "start_date",
+          "end_date"
         ],
         "title": "MarketCapRequest"
       },
@@ -523,11 +552,5 @@
         "title": "ValidationError"
       }
     }
-  },
-  "servers": [
-    {
-      "url": "https://pykrx-xifs.onrender.com",
-      "description": "Production server"
-    }
-  ]
+  }
 }

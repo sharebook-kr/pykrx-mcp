@@ -79,13 +79,15 @@ class TickerNameRequest(BaseModel):
 
 
 class MarketCapRequest(BaseModel):
-    date: str
-    market: str = "KOSPI"
+    ticker: str
+    start_date: str
+    end_date: str
 
 
 class FundamentalRequest(BaseModel):
-    date: str
-    market: str = "KOSPI"
+    ticker: str
+    start_date: str
+    end_date: str
 
 
 class TradingValueRequest(BaseModel):
@@ -339,8 +341,12 @@ async def get_market_ticker_name(request: TickerNameRequest):
 async def get_market_cap_by_date(request: MarketCapRequest):
     """Get market cap data."""
     try:
-        logger.info(f"Fetching market cap for {request.market}")
-        result = get_market_cap_impl(date=request.date, market=request.market)
+        logger.info(f"Fetching market cap for {request.ticker}")
+        result = get_market_cap_impl(
+            ticker=request.ticker,
+            start_date=request.start_date,
+            end_date=request.end_date,
+        )
         if "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
@@ -353,8 +359,12 @@ async def get_market_cap_by_date(request: MarketCapRequest):
 async def get_market_fundamental_by_date(request: FundamentalRequest):
     """Get fundamental data."""
     try:
-        logger.info(f"Fetching fundamental data for {request.market}")
-        result = get_fundamental_impl(date=request.date, market=request.market)
+        logger.info(f"Fetching fundamental data for {request.ticker}")
+        result = get_fundamental_impl(
+            ticker=request.ticker,
+            start_date=request.start_date,
+            end_date=request.end_date,
+        )
         if "error" in result:
             raise HTTPException(status_code=400, detail=result["error"])
         return result
