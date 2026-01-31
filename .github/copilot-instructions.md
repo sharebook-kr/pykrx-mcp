@@ -13,6 +13,7 @@ This is an MCP (Model Context Protocol) server that exposes the `pykrx` Korean s
 **MCP stdio Pattern:**
 - All logging MUST go to `sys.stderr` (stdout is reserved for MCP protocol communication)
 - Tool functions are decorated with `@mcp.tool()` and use type hints for LLM schema generation
+- Resources are decorated with `@mcp.resource()` to provide static documentation and guides
 - Entry point: `mcp.run()` in `main()` function
 
 ## Version Management
@@ -77,6 +78,48 @@ def get_market_data(ticker: str, date: str) -> dict:
         logger.error(f"Error: {e}")
         return {"error": str(e), "ticker": ticker}
 ```
+
+## Adding MCP Resources
+
+MCP resources provide static documentation and usage guides that AI models can read before using tools. Resources dramatically improve model accuracy and reduce errors by providing context about constraints, formats, and best practices.
+
+**When to add resources:**
+- Documenting API constraints (date formats, ticker formats)
+- Providing tool selection guidance (which tool for which task)
+- Explaining rate limits and performance considerations
+- Creating self-healing guides (common errors and fixes)
+
+**Resource pattern:**
+```python
+@mcp.resource("krx://resource-name")
+def get_resource_name() -> str:
+    """Brief description of what this resource provides."""
+    return """
+    # Resource Title
+    
+    Comprehensive documentation that the AI model will read.
+    Include:
+    - Data format constraints
+    - Tool selection mappings
+    - Error handling guidance
+    - Performance tips
+    """
+```
+
+**Current resources:**
+- `krx://info`: Basic KRX market information
+- `krx://pykrx-manual`: Comprehensive usage guide including:
+  - Date/ticker format constraints with correct/incorrect examples
+  - Tool selection guide (which tool for which user question)
+  - Best practices for long-term data queries and rate limiting
+  - Common error patterns and troubleshooting steps
+  - Known limitations of the pykrx library
+
+**Benefits of well-designed resources:**
+- Models learn constraints before making tool calls (fewer format errors)
+- Self-healing: Models refer back to guides when encountering errors
+- Reduced hallucination: Clear documentation of what IS and ISN'T possible
+- Better UX: AI provides more accurate responses on first attempt
 
 ## Development Workflow
 

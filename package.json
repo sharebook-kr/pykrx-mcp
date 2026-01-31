@@ -7,7 +7,7 @@
     "@modelcontextprotocol/inspector": "^0.1.0"
   },
   "scripts": {
-    "inspector": "mcp-inspector uvx pykrx-mcp",
+    "inspector": "npx @modelcontextprotocol/inspector uv --directory . run --with-editable . python -m pykrx_mcp.server",
     "test": "pytest -v",
     "format": "black src/",
     "lint": "ruff check src/",

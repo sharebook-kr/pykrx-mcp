@@ -14,7 +14,7 @@ license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = [
     "pykrx>=1.0.46",
-    "mcp[cli]>=1.1.2",
+    "mcp>=1.1.2",
     "pandas>=2.0.0",
     "setuptools>=65.0.0",
 ]
@@ -43,6 +43,7 @@ dev = [
     "pytest-cov>=4.0.0",
     "black>=23.0.0",
     "ruff>=0.1.0",
+    "mcp[cli]>=1.1.2",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -50,3 +51,25 @@ packages = ["src/pykrx_mcp"]
 
 [tool.hatch.version]
 path = "src/pykrx_mcp/__about__.py"
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort (import sorting)
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+]
+ignore = []
+
+[tool.ruff.lint.isort]
+known-first-party = ["pykrx_mcp"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

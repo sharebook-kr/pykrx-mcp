@@ -101,18 +101,13 @@ ruff check src/
 npm run lint
 ```
 
-##uv 스크립트로 실행
-uv run inspector
+MCP Inspector는 개발 환경에 포함되어 있습니다:
 
-# 또는 직접 실행
-npx # 개발 환경에 포함된 Inspector 실행
-make inspector
-# 또는
+```bash
 npm run inspector
+```
 
-# 또는 전역 설치 후 사용
-npm install -g @modelcontextprotocol/inspector
-mcp-inspector uvx pykrx-mcp
+Inspector UI가 열리면 웹 브라우저에서 서버 상태, 도구 목록, 실시간 요청/응답을 확인할 수 있습니다.
 ```
 
 #### 2. Claude Desktop 로그 확인

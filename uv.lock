@@ -1680,7 +1680,7 @@ wheels = [
 name = "pykrx-mcp"
 source = { editable = "." }
 dependencies = [
-    { name = "mcp", extra = ["cli"] },
+    { name = "mcp" },
     { name = "pandas", version = "2.3.3", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "pandas", version = "3.0.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "pykrx" },
@@ -1690,6 +1690,7 @@ dependencies = [
 [package.dev-dependencies]
 dev = [
     { name = "black" },
+    { name = "mcp", extra = ["cli"] },
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "ruff" },
@@ -1697,7 +1698,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "mcp", extras = ["cli"], specifier = ">=1.1.2" },
+    { name = "mcp", specifier = ">=1.1.2" },
     { name = "pandas", specifier = ">=2.0.0" },
     { name = "pykrx", specifier = ">=1.0.46" },
     { name = "setuptools", specifier = ">=65.0.0" },
@@ -1706,6 +1707,7 @@ requires-dist = [
 [package.metadata.requires-dev]
 dev = [
     { name = "black", specifier = ">=23.0.0" },
+    { name = "mcp", extras = ["cli"], specifier = ">=1.1.2" },
     { name = "pytest", specifier = ">=7.0.0" },
     { name = "pytest-cov", specifier = ">=4.0.0" },
     { name = "ruff", specifier = ">=0.1.0" },
