@@ -26,10 +26,18 @@ def format_dataframe_response(df: pd.DataFrame, **metadata: Any) -> dict:
             'data': [{'Close': 70000}, {'Close': 71000}]
         }
     """
+    # Reset index to make date column accessible
+    df_copy = df.reset_index()
+
+    # Convert datetime columns to string format (YYYY-MM-DD)
+    for col in df_copy.columns:
+        if pd.api.types.is_datetime64_any_dtype(df_copy[col]):
+            df_copy[col] = df_copy[col].dt.strftime("%Y-%m-%d")
+
     return {
         **metadata,
         "row_count": len(df),
-        "data": df.reset_index().to_dict(orient="records"),
+        "data": df_copy.to_dict(orient="records"),
     }
 
 
