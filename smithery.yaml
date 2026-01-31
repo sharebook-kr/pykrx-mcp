@@ -1,7 +1,7 @@
 name: pykrx-mcp
 author: sharebook-kr
 description: MCP server for Korean stock market data using pykrx library. Provides tools for KOSPI/KOSDAQ market analysis, ETF tracking, and fundamental data queries.
-version: 0.1.0
+version: 0.1.1
 runtime: python
 
 # 설치 명령
