@@ -5,6 +5,36 @@ from typing import Any
 import pandas as pd
 
 
+def dict_to_table(data: dict) -> str:
+    """
+    Convert dictionary data to a simple table format.
+
+    Args:
+        data: Dictionary to convert to table format
+
+    Returns:
+        String representation of table
+
+    Example:
+        >>> dict_to_table({"a": 1, "b": 2})
+        "a: 1\\nb: 2"
+    """
+    if not data:
+        return ""
+
+    # Handle nested dictionary (e.g., date-indexed data)
+    if isinstance(next(iter(data.values()), None), dict):
+        lines = []
+        for key, value in data.items():
+            lines.append(f"{key}:")
+            for k, v in value.items():
+                lines.append(f"  {k}: {v}")
+        return "\n".join(lines)
+
+    # Handle simple dictionary
+    return "\n".join(f"{k}: {v}" for k, v in data.items())
+
+
 def format_dataframe_response(df: pd.DataFrame, **metadata: Any) -> dict:
     """
     Convert pandas DataFrame to MCP-compatible dict response.

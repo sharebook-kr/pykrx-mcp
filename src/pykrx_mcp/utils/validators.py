@@ -76,3 +76,23 @@ def validate_ticker_format(ticker: str) -> tuple[bool, str]:
         return False, msg
 
     return True, ""
+
+
+def validate_ticker(ticker: str) -> bool:
+    """
+    Check if ticker is valid 6-digit format (convenience function).
+
+    Args:
+        ticker: Stock ticker to validate
+
+    Returns:
+        True if valid, False otherwise
+
+    Examples:
+        >>> validate_ticker("005930")
+        True
+        >>> validate_ticker("5930")
+        False
+    """
+    is_valid, _ = validate_ticker_format(ticker)
+    return is_valid

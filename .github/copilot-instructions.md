@@ -9,6 +9,7 @@ This is an MCP (Model Context Protocol) server that exposes the `pykrx` Korean s
 - `src/pykrx_mcp/server.py`: FastMCP server with tool definitions
 - `src/pykrx_mcp/__about__.py`: Single source of truth for version management
 - `smithery.yaml`: Smithery registry metadata (auto-synced with Python version)
+- `server.json`: MCP official registry metadata (auto-synced with Python version)
 - `scripts/sync_smithery_version.py`: Version synchronization script
 - `.github/workflows/publish.yml`: Fully automated dual-platform release workflow
 
@@ -36,8 +37,8 @@ Fully Automated Release Workflow
 **What happens:**
 1. CI upgrades pykrx dependency: `uv lock --upgrade-package pykrx`
 2. Bumps patch version in `__about__.py` (e.g., `0.1.0` → `0.1.1`)
-3. Runs `scripts/sync_smithery_version.py` to sync `smithery.yaml`
-4. Commits: `uv.lock`, `__about__.py`, `smithery.yaml`
+3. Runs `scripts/sync_smithery_version.py` to sync `smithery.yaml` and `server.json`
+4. Commits: `uv.lock`, `__about__.py`, `smithery.yaml`, `server.json`
 5. Creates git tag `v0.1.1`
 6. Pushes commit and tag to main branch
 7. Tag push triggers Path 2 (below)
@@ -53,6 +54,7 @@ Fully Automated Release Workflow
 2. Publishes to PyPI via OIDC Trusted Publishing
 3. Creates GitHub Release with auto-generated notes
 4. Smithery auto-detects updated `smithery.yaml` from the tagged commit
+5. MCP Registry can consume updated `server.json` metadata
 
 **Works for both:**
 - Tags created by Path 1 (automated)
@@ -79,13 +81,13 @@ git push origin main
 git push origin v0.2.0
 
 # 4. CI handles everything else automatically:
-#    - Syncs smithery.yaml to version 0.2.0
+#    - Syncs smithery.yaml and server.json to version 0.2.0
 #    - Publishes to PyPI
 #    - Creates GitHub Release
 #    - Smithery detects update
 ```
 
-**That's it!** No need to manually edit `smithery.yaml`.
+**That's it!** No need to manually edit `smithery.yaml` or `server.json`.
 
 2. **`push` tags (v*)**: Manual or automated tag push
    - Runs `publish` job with `environment: pypi`

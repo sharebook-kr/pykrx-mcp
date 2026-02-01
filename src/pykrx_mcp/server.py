@@ -25,10 +25,37 @@ from .tools import (
     get_etf_ticker_list as get_etf_ticker_list_impl,
 )
 from .tools import (
+    get_exhaustion_rates_of_foreign_investment as get_foreign_investment_impl,
+)
+from .tools import (
+    get_index_fundamental as get_index_fundamental_impl,
+)
+from .tools import (
+    get_index_ohlcv as get_index_ohlcv_impl,
+)
+from .tools import (
+    get_index_portfolio_deposit_file as get_index_portfolio_impl,
+)
+from .tools import (
+    get_index_ticker_list as get_index_ticker_list_impl,
+)
+from .tools import (
+    get_index_ticker_name as get_index_ticker_name_impl,
+)
+from .tools import (
     get_market_cap_by_date as get_market_cap_impl,
 )
 from .tools import (
     get_market_fundamental_by_date as get_fundamental_impl,
+)
+from .tools import (
+    get_market_net_purchases_of_equities as get_net_purchases_impl,
+)
+from .tools import (
+    get_market_ohlcv_by_date as get_market_ohlcv_impl,
+)
+from .tools import (
+    get_market_price_change as get_price_change_impl,
 )
 from .tools import (
     get_market_ticker_list as get_ticker_list_impl,
@@ -38,6 +65,24 @@ from .tools import (
 )
 from .tools import (
     get_market_trading_value_by_date as get_trading_value_impl,
+)
+from .tools import (
+    get_market_trading_value_by_investor as get_trading_value_investor_impl,
+)
+from .tools import (
+    get_market_trading_volume_by_investor as get_trading_volume_investor_impl,
+)
+from .tools import (
+    get_shorting_balance_top50 as get_shorting_balance_top50_impl,
+)
+from .tools import (
+    get_shorting_status_by_date as get_shorting_status_impl,
+)
+from .tools import (
+    get_shorting_volume_by_ticker as get_shorting_volume_impl,
+)
+from .tools import (
+    get_shorting_volume_top50 as get_shorting_volume_top50_impl,
 )
 from .tools import (
     get_stock_ohlcv as get_stock_ohlcv_impl,
@@ -324,6 +369,322 @@ def get_etf_ticker_list(date: str) -> dict:
     return get_etf_ticker_list_impl(date)
 
 
+# ===== Index Tools =====
+
+
+@mcp.tool()
+def get_index_ticker_list(date: str = None, market: str = "KOSPI") -> dict:
+    """
+    Get list of index tickers (KOSPI/KOSDAQ indices).
+
+    Args:
+        date: Date in YYYYMMDD format, omit for latest (e.g., "20240101")
+        market: Market type - KOSPI or KOSDAQ (default: KOSPI)
+
+    Returns:
+        Dictionary with index ticker list
+
+    Example:
+        get_index_ticker_list("20240101", "KOSPI")
+    """
+    return get_index_ticker_list_impl(date, market)
+
+
+@mcp.tool()
+def get_index_ticker_name(ticker: str) -> dict:
+    """
+    Get the name of an index from its ticker.
+
+    Args:
+        ticker: Index ticker (e.g., "1001" for KOSPI)
+
+    Returns:
+        Dictionary with ticker and index name
+
+    Example:
+        get_index_ticker_name("1001")
+    """
+    return get_index_ticker_name_impl(ticker)
+
+
+@mcp.tool()
+def get_index_ohlcv(
+    ticker: str, start_date: str, end_date: str, freq: str = "d"
+) -> dict:
+    """
+    Get index OHLCV data.
+
+    Args:
+        ticker: Index ticker (e.g., "1001" for KOSPI)
+        start_date: Start date in YYYYMMDD format
+        end_date: End date in YYYYMMDD format
+        freq: Frequency - d (daily), m (monthly), y (yearly)
+
+    Returns:
+        Dictionary with index OHLCV data
+
+    Example:
+        get_index_ohlcv("1001", "20240101", "20240131", "d")
+    """
+    return get_index_ohlcv_impl(ticker, start_date, end_date, freq)
+
+
+@mcp.tool()
+def get_index_fundamental(
+    start_date: str, end_date: str = None, ticker: str = None
+) -> dict:
+    """
+    Get index fundamental data (PER/PBR/dividend yield).
+
+    Args:
+        start_date: Start date in YYYYMMDD format
+        end_date: End date (optional, for specific index over time)
+        ticker: Index ticker (optional, for specific index)
+
+    Returns:
+        Dictionary with fundamental indicators
+
+    Example:
+        get_index_fundamental("20240101", "20240131", "1001")
+    """
+    return get_index_fundamental_impl(start_date, end_date, ticker)
+
+
+@mcp.tool()
+def get_index_portfolio_deposit_file(ticker: str, date: str = None) -> dict:
+    """
+    Get constituent stocks of an index.
+
+    Args:
+        ticker: Index ticker (e.g., "1005" for textile/clothing)
+        date: Date in YYYYMMDD format (optional, defaults to latest)
+
+    Returns:
+        Dictionary with constituent ticker list
+
+    Example:
+        get_index_portfolio_deposit_file("1005")
+    """
+    return get_index_portfolio_impl(ticker, date)
+
+
+# ===== Short Selling Tools =====
+
+
+@mcp.tool()
+def get_shorting_status_by_date(ticker: str, start_date: str, end_date: str) -> dict:
+    """
+    Get short selling status for a stock.
+
+    Args:
+        ticker: 6-digit stock ticker
+        start_date: Start date in YYYYMMDD format
+        end_date: End date in YYYYMMDD format
+
+    Returns:
+        Dictionary with short selling volume and balance data
+
+    Example:
+        get_shorting_status_by_date("005930", "20240101", "20240131")
+    """
+    return get_shorting_status_impl(ticker, start_date, end_date)
+
+
+@mcp.tool()
+def get_shorting_volume_by_ticker(date: str, market: str = "KOSPI") -> dict:
+    """
+    Get short selling volume for all stocks on a date.
+
+    Args:
+        date: Date in YYYYMMDD format
+        market: Market type - KOSPI/KOSDAQ/KONEX
+
+    Returns:
+        Dictionary with short selling volume by ticker
+
+    Example:
+        get_shorting_volume_by_ticker("20240101", "KOSPI")
+    """
+    return get_shorting_volume_impl(date, market)
+
+
+@mcp.tool()
+def get_shorting_balance_top50(date: str, market: str = "KOSPI") -> dict:
+    """
+    Get top 50 stocks by short selling balance ratio.
+
+    Args:
+        date: Date in YYYYMMDD format
+        market: Market type - KOSPI or KOSDAQ
+
+    Returns:
+        Dictionary with top 50 stocks ranked by short balance
+
+    Example:
+        get_shorting_balance_top50("20240101", "KOSPI")
+    """
+    return get_shorting_balance_top50_impl(date, market)
+
+
+@mcp.tool()
+def get_shorting_volume_top50(date: str, market: str = "KOSPI") -> dict:
+    """
+    Get top 50 stocks by short selling trading ratio.
+
+    Args:
+        date: Date in YYYYMMDD format
+        market: Market type - KOSPI or KOSDAQ
+
+    Returns:
+        Dictionary with top 50 stocks ranked by short volume
+
+    Example:
+        get_shorting_volume_top50("20240101", "KOSPI")
+    """
+    return get_shorting_volume_top50_impl(date, market)
+
+
+# ===== Investor Trading Tools =====
+
+
+@mcp.tool()
+def get_market_trading_volume_by_investor(
+    start_date: str, end_date: str, ticker: str
+) -> dict:
+    """
+    Get net purchase volume by investor type.
+
+    Args:
+        start_date: Start date in YYYYMMDD format
+        end_date: End date in YYYYMMDD format
+        ticker: Stock ticker or market (KOSPI/KOSDAQ/KONEX/ALL)
+
+    Returns:
+        Dictionary with investor trading volume (buy/sell/net)
+
+    Example:
+        get_market_trading_volume_by_investor("20240101", "20240131", "005930")
+    """
+    return get_trading_volume_investor_impl(start_date, end_date, ticker)
+
+
+@mcp.tool()
+def get_market_trading_value_by_investor(
+    start_date: str, end_date: str, ticker: str
+) -> dict:
+    """
+    Get net purchase value by investor type.
+
+    Args:
+        start_date: Start date in YYYYMMDD format
+        end_date: End date in YYYYMMDD format
+        ticker: Stock ticker or market (KOSPI/KOSDAQ/KONEX/ALL)
+
+    Returns:
+        Dictionary with investor trading value (buy/sell/net)
+
+    Example:
+        get_market_trading_value_by_investor("20240101", "20240131", "KOSPI")
+    """
+    return get_trading_value_investor_impl(start_date, end_date, ticker)
+
+
+@mcp.tool()
+def get_market_net_purchases_of_equities(
+    start_date: str, end_date: str, market: str, investor: str
+) -> dict:
+    """
+    Get top stocks by net purchases for specific investor type.
+
+    Args:
+        start_date: Start date in YYYYMMDD format
+        end_date: End date in YYYYMMDD format
+        market: Market type (KOSPI/KOSDAQ/KONEX/ALL)
+        investor: Investor type (금융투자/보험/투신/사모/은행/기관합계/개인/외국인 etc.)
+
+    Returns:
+        Dictionary with top stocks ranked by net purchases
+
+    Example:
+        get_market_net_purchases_of_equities("20240101", "20240131", "KOSPI", "외국인")
+    """
+    return get_net_purchases_impl(start_date, end_date, market, investor)
+
+
+# ===== Foreign Investment Tools =====
+
+
+@mcp.tool()
+def get_exhaustion_rates_of_foreign_investment(
+    start_date: str,
+    end_date: str = None,
+    ticker: str = None,
+    market: str = "KOSPI",
+    balance_limit: bool = False,
+) -> dict:
+    """
+    Get foreign ownership and investment limit exhaustion rates.
+
+    Args:
+        start_date: Start date in YYYYMMDD format
+        end_date: End date (optional, for specific stock over time)
+        ticker: Stock ticker (optional, for specific stock)
+        market: Market type - KOSPI/KOSDAQ/KONEX
+        balance_limit: Only show stocks with foreign ownership limits
+
+    Returns:
+        Dictionary with foreign ownership data
+
+    Example:
+        get_exhaustion_rates_of_foreign_investment("20240101", market="KOSPI")
+    """
+    return get_foreign_investment_impl(
+        start_date, end_date, ticker, market, balance_limit
+    )
+
+
+# ===== Market-wide Data Tools =====
+
+
+@mcp.tool()
+def get_market_ohlcv_by_date(date: str, market: str = "KOSPI") -> dict:
+    """
+    Get OHLCV for all stocks on a specific date.
+
+    Args:
+        date: Date in YYYYMMDD format
+        market: Market type - KOSPI/KOSDAQ/KONEX/ALL
+
+    Returns:
+        Dictionary with OHLCV data for all stocks
+
+    Example:
+        get_market_ohlcv_by_date("20240101", "KOSPI")
+    """
+    return get_market_ohlcv_impl(date, market)
+
+
+@mcp.tool()
+def get_market_price_change(
+    start_date: str, end_date: str, market: str = "KOSPI"
+) -> dict:
+    """
+    Get price change for all stocks over a period.
+
+    Args:
+        start_date: Start date in YYYYMMDD format
+        end_date: End date in YYYYMMDD format
+        market: Market type - KOSPI/KOSDAQ/KONEX/ALL
+
+    Returns:
+        Dictionary with price changes for all stocks
+
+    Example:
+        get_market_price_change("20240101", "20240131", "KOSPI")
+    """
+    return get_price_change_impl(start_date, end_date, market)
+
+
 def main():
     """Entry point for the MCP server."""
     parser = argparse.ArgumentParser(description="pykrx-mcp server")
@@ -334,19 +695,24 @@ def main():
         help="Transport protocol: stdio for standard I/O (default), sse for HTTP/SSE",
     )
     parser.add_argument(
-        "--mount-path",
-        default=os.getenv("MCP_MOUNT_PATH", None),
-        help="Optional mount path for SSE transport",
+        "--host",
+        default=os.getenv("MCP_HOST", "0.0.0.0"),
+        help="Host to bind to for SSE transport (default: 0.0.0.0)",
+    )
+    parser.add_argument(
+        "--port",
+        type=int,
+        default=int(os.getenv("MCP_PORT", "8000")),
+        help="Port to bind to for SSE transport (default: 8000)",
     )
 
     args = parser.parse_args()
 
     if args.transport == "sse":
-        # Use uvicorn via environment variables for host/port configuration
-        # Default: HOST=0.0.0.0 PORT=8000
-        logger.info("Starting pykrx-mcp server with SSE transport")
-        logger.info("Configure via: HOST=... PORT=... environment variables")
-        mcp.run(transport="sse", mount_path=args.mount_path)
+        logger.info(
+            f"Starting pykrx-mcp server with SSE transport on {args.host}:{args.port}"
+        )
+        mcp.run(transport="sse", host=args.host, port=args.port)
     else:
         logger.info("Starting pykrx-mcp server with stdio transport")
         mcp.run()

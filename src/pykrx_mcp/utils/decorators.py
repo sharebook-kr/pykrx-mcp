@@ -55,3 +55,7 @@ def mcp_tool_error_handler(func: Callable) -> Callable:
             }
 
     return wrapper
+
+
+# Alias for backward compatibility
+handle_pykrx_errors = mcp_tool_error_handler
