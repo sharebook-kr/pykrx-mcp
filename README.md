@@ -20,17 +20,7 @@
 
 ## 1. 시작하기
 
-### 1.1 ChatGPT에서 사용하기
-
-#### GPT Store 다운로드 (권장)
-
-**pykrx GPT**: [https://chatgpt.com/g/g-697e184a14e48191b765bfd43037bd35-pykrx](https://chatgpt.com/g/g-697e184a14e48191b765bfd43037bd35-pykrx)
-
-GPT Store에서 pykrx GPT를 추가하면 바로 사용할 수 있습니다.
-
-> **참고**: [Koyeb](https://app.koyeb.com/) 서비스를 통해 무료로 호스팅되고 있습니다.
-
-### 1.2 Claude Desktop에서 사용하기
+### 1.1 Claude Desktop에서 사용하기
 
 #### 자동 설치 (권장)
 
