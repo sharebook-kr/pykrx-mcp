@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/sharebook-kr-pykrx-mcp-badge.png)](https://mseep.ai/app/sharebook-kr-pykrx-mcp)
+
 # pykrx-mcp
 
 [![PyPI version](https://badge.fury.io/py/pykrx-mcp.svg)](https://badge.fury.io/py/pykrx-mcp)
